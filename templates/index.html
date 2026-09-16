@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Helpdesk Command Center</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                H
+            </div>
+
+            <div>
+                <h2>HELPDESK</h2>
+                <span>COMMAND CENTER</span>
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <button
+                class="nav-item active"
+                data-view="dashboard"
+            >
+                <span>▣</span>
+                Dashboard
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-view="queue"
+            >
+                <span>◇</span>
+                Ticket Queue
+            </button>
+
+
+            <button
+                class="nav-item"
+                data-view="resolved"
+            >
+                <span>✓</span>
+                Resolved
+            </button>
+
+        </nav>
+
+
+        <div class="team">
+
+            <p class="team-title">
+                SUPPORT TEAM
+            </p>
+
+
+            <div class="member">
+
+                <div class="avatar priya">
+                    P
+                </div>
+
+                <div>
+                    <strong>Priya</strong>
+                    <span>IT Support</span>
+                </div>
+
+            </div>
+
+
+            <div class="member">
+
+                <div class="avatar raj">
+                    R
+                </div>
+
+                <div>
+                    <strong>Raj</strong>
+                    <span>IT Support</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- DASHBOARD -->
+
+        <section
+            id="dashboardSection"
+            class="page-section"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        IT OPERATIONS
+                    </p>
+
+                    <h1>
+                        Ticket Command Center
+                    </h1>
+
+                    <p class="subtitle">
+                        The most pressing ticket is always on top.
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="newTicketBtn"
+                    class="new-ticket-btn"
+                >
+                    + New Ticket
+                </button>
+
+            </header>
+
+
+
+            <!-- STATS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        #
+                    </span>
+
+                    <div>
+                        <p>Total Tickets</p>
+                        <strong id="totalTickets">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-icon danger">
+                        !
+                    </span>
+
+                    <div>
+                        <p>Overdue</p>
+                        <strong id="overdueTickets">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-icon urgent">
+                        !
+                    </span>
+
+                    <div>
+                        <p>Urgent</p>
+                        <strong id="urgentTickets">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        →
+                    </span>
+
+                    <div>
+                        <p>In Progress</p>
+                        <strong id="progressTickets">0</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <span class="stat-icon">
+                        ✓
+                    </span>
+
+                    <div>
+                        <p>Closed</p>
+                        <strong id="closedTickets">0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- QUEUE INFO -->
+
+            <div class="queue-banner">
+
+                <div>
+
+                    <span class="live">
+                        ● LIVE QUEUE
+                    </span>
+
+                    <h2>
+                        Smart priority ordering enabled
+                    </h2>
+
+                    <p>
+                        Overdue → Urgent → High → Normal → Low
+                    </p>
+
+                </div>
+
+
+                <div class="queue-rules">
+
+                    <span>
+                        <b>01</b>
+                        Deadline
+                    </span>
+
+                    <span>
+                        <b>02</b>
+                        Priority
+                    </span>
+
+                    <span>
+                        <b>03</b>
+                        Created
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FILTER -->
+
+            <div class="filter-box">
+
+                <div class="search-wrapper">
+
+                    <span>⌕</span>
+
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Search customer or issue..."
+                    >
+
+                </div>
+
+
+                <select id="priorityFilter">
+
+                    <option value="">
+                        All Priorities
+                    </option>
+
+                    <option value="URGENT">
+                        Urgent
+                    </option>
+
+                    <option value="HIGH">
+                        High
+                    </option>
+
+                    <option value="NORMAL">
+                        Normal
+                    </option>
+
+                    <option value="LOW">
+                        Low
+                    </option>
+
+                </select>
+
+
+                <select id="statusFilter">
+
+                    <option value="">
+                        All Status
+                    </option>
+
+                    <option value="OPEN">
+                        Open
+                    </option>
+
+                    <option value="IN_PROGRESS">
+                        In Progress
+                    </option>
+
+                    <option value="RESOLVED">
+                        Resolved
+                    </option>
+
+                    <option value="CLOSED">
+                        Closed
+                    </option>
+
+                </select>
+
+
+                <select id="assigneeFilter">
+
+                    <option value="">
+                        All Assignees
+                    </option>
+
+                    <option value="Priya">
+                        Priya
+                    </option>
+
+                    <option value="Raj">
+                        Raj
+                    </option>
+
+                </select>
+
+
+                <button
+                    id="refreshBtn"
+                    class="refresh-btn"
+                    title="Refresh"
+                >
+                    ↻
+                </button>
+
+            </div>
+
+
+
+            <!-- DASHBOARD QUEUE -->
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>
+                        Priority Queue
+                    </h2>
+
+                    <p>
+                        Tickets are automatically ordered by urgency.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="ticketList"
+                class="ticket-list"
+            ></div>
+
+        </section>
+
+
+
+        <!-- QUEUE PAGE -->
+
+        <section
+            id="queueSection"
+            class="page-section hidden"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        LIVE OPERATIONS
+                    </p>
+
+                    <h1>
+                        Ticket Queue
+                    </h1>
+
+                    <p class="subtitle">
+                        The highest-priority ticket is always first.
+                    </p>
+
+                </div>
+
+
+                <button
+                    class="new-ticket-btn"
+                    onclick="openModal()"
+                >
+                    + New Ticket
+                </button>
+
+            </header>
+
+
+            <div class="queue-banner">
+
+                <div>
+
+                    <span class="live">
+                        ● SMART QUEUE
+                    </span>
+
+                    <h2>
+                        Right ticket, right time
+                    </h2>
+
+                    <p>
+                        Overdue → Urgent → High → Normal → Low
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="queueList"
+                class="ticket-list"
+            ></div>
+
+        </section>
+
+
+
+        <!-- RESOLVED PAGE -->
+
+        <section
+            id="resolvedSection"
+            class="page-section hidden"
+        >
+
+            <header class="page-header">
+
+                <div>
+
+                    <p class="eyebrow">
+                        COMPLETED WORK
+                    </p>
+
+                    <h1>
+                        Resolved Tickets
+                    </h1>
+
+                    <p class="subtitle">
+                        Successfully resolved and closed tickets.
+                    </p>
+
+                </div>
+
+            </header>
+
+
+            <div
+                id="resolvedList"
+                class="ticket-list"
+            ></div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+
+<!-- NEW TICKET MODAL -->
+
+<div
+    id="ticketModal"
+    class="modal hidden"
+>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <p class="eyebrow">
+                    CREATE
+                </p>
+
+                <h2>
+                    New Support Ticket
+                </h2>
+
+            </div>
+
+            <button
+                id="closeModal"
+                class="close-btn"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="ticketForm">
+
+
+            <label>
+                Customer Name
+
+                <input
+                    id="customerName"
+                    type="text"
+                    placeholder="e.g. Rahul Sharma"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                Issue
+
+                <textarea
+                    id="issue"
+                    rows="4"
+                    placeholder="Describe the problem..."
+                    required
+                ></textarea>
+
+            </label>
+
+
+            <div class="form-grid">
+
+
+                <label>
+                    Priority
+
+                    <select id="ticketPriority">
+
+                        <option value="URGENT">
+                            Urgent
+                        </option>
+
+                        <option value="HIGH">
+                            High
+                        </option>
+
+                        <option
+                            value="NORMAL"
+                            selected
+                        >
+                            Normal
+                        </option>
+
+                        <option value="LOW">
+                            Low
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+                <label>
+                    Assigned To
+
+                    <select id="ticketAssignee">
+
+                        <option value="">
+                            Unassigned
+                        </option>
+
+                        <option value="Priya">
+                            Priya
+                        </option>
+
+                        <option value="Raj">
+                            Raj
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <label>
+                    Deadline
+
+                    <input
+                        id="ticketDeadline"
+                        type="datetime-local"
+                    >
+
+                </label>
+
+
+                <label>
+                    Status
+
+                    <select id="ticketStatus">
+
+                        <option value="OPEN">
+                            Open
+                        </option>
+
+                        <option value="IN_PROGRESS">
+                            In Progress
+                        </option>
+
+                    </select>
+
+                </label>
+
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelTicket"
+                    class="cancel-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    Create Ticket
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script
+    src="{{ url_for('static', filename='script.js') }}"
+></script>
+
+</body>
+
+</html>
